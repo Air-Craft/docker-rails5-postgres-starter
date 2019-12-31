@@ -1,0 +1,29 @@
+version: '3'
+services:
+  db:
+    image: postgres:12.1-alpine
+    ports:
+      - 5432
+    volumes:
+      - ./db:/var/lib/postgresql/data
+  web:
+    image: harikaram/rails5postgres-freshstart
+    env_file:
+      - .env
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    volumes:
+      - ./rails:/app
+      - ./bundler_gems:/usr/local/bundle/
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  rails:
+  db:
+  bundler_gems:
+#https://anonoz.github.io/tech/2019/03/10/rails-docker-compose-yml.html

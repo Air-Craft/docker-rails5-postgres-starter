@@ -1,0 +1,25 @@
+FROM ruby:2.6-alpine
+
+RUN apk add --no-cache --update \
+  g++ \
+  make \
+  nodejs \
+  postgresql-dev \
+  postgresql-client \
+  tzdata
+
+# gnupg
+
+RUN mkdir /app
+WORKDIR /app
+
+# only need to copy these in if you lose the volume mounts. (ie for production)
+#COPY ./rails /app
+#COPY Gemfile /app/Gemfile
+#COPY Gemfile.lock /app/Gemfile.lock
+
+#apt-get update -qq && apt-get install -y build-essential nodejs postgresql-client rsync git curl ca-certificates gnupg1 openssh-client bundler yarn
+
+EXPOSE 3000
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+
