@@ -24,4 +24,5 @@ docker-composer run web bundle install
 ````
 
 Note, they are NOT saved in the image itself. A seperate Dockerfile for production
-is required which _should_ include the `bundle install` (and `db:setup`?) commands.
+is required which _should_ include the `bundle install` (and `db:setup`?) commands, as well as
+as COPY command to copy in the source code to the WORKDIR
